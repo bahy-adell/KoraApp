@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "nodemon app.ts",
     "prod": "node ./dist/app.js",
-    "build": "tsc"
+    "start": "node dist/app.js",
+    "build": "tsc",
+    "vercel-build": "npm run build"
   },
   "keywords": [],
   "author": "",
