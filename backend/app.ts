@@ -5,6 +5,7 @@ import AllRoutes from "./Routes";
 import cors from "cors";
 import { errorMiddleware } from "./middlwares/globalError";
 import i18nMiddleware from "./middlwares/i18n";
+import ServerlessHttp from "serverless-http";
 
 dotenv.config(); 
 
@@ -47,3 +48,6 @@ const PORT = process.env.PORT || 3010;
 app.listen(PORT, () => {
   console.log(`App listening on Port: ${PORT}`);
 });
+
+module.exports = app;
+module.exports.handler = ServerlessHttp(app);

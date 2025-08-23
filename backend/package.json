@@ -4,7 +4,6 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.ts",
-    "prod": "node ./dist/app.js",
     "start": "node  dist/app.js",
     "build": "tsc",
     "vercel-build": "npm run build"
@@ -47,6 +46,7 @@
     "multer": "^1.4.5-lts.2",
     "nodemailer": "^6.10.0",
     "nodemon": "^3.1.9",
-    "redis": "^4.7.0"
+    "redis": "^4.7.0",
+    "serverless-http": "^3.2.0"
   }
 }
