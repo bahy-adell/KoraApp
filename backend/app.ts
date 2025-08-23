@@ -44,10 +44,14 @@ app.use(i18nMiddleware);
 AllRoutes(app);
 app.use(errorMiddleware);
 
-const PORT = process.env.PORT || 3010;
-app.listen(PORT, () => {
-  console.log(`App listening on Port: ${PORT}`);
-});
+// Only start the server if not in serverless environment
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3010;
+  app.listen(PORT, () => {
+    console.log(`App listening on Port: ${PORT}`);
+  });
+}
 
-module.exports = app;
-module.exports.handler = ServerlessHttp(app);
+// Export for both CommonJS and serverless
+export default app;
+export const handler = ServerlessHttp(app);
