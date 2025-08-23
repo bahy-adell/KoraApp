@@ -15,7 +15,7 @@ app.use(express.json());
 const allowedOrigins = [
   "http://localhost:4200",
   "http://localhost:3000",
-  process.env.BASE_URL || ""  
+  process.env.BASE_URL || "https://kora-app.vercel.app"
 ];
 
 app.use(
