@@ -5,18 +5,17 @@ import AllRoutes from "./Routes";
 import cors from "cors";
 import { errorMiddleware } from "./middlwares/globalError";
 import i18nMiddleware from "./middlwares/i18n";
-import ServerlessHttp from "serverless-http";
 
-dotenv.config(); 
+dotenv.config();
 
 const app: express.Application = express();
 app.use(express.json());
 
-
+// ✅ CORS setup
 const allowedOrigins = [
   "http://localhost:4200",
   "http://localhost:3000",
-  process.env.BASE_URL 
+  process.env.BASE_URL,
 ];
 
 app.use(
@@ -35,23 +34,23 @@ app.use(
 );
 app.options("*", cors());
 
+// ✅ DB Connection
 database();
 
+// ✅ Middlewares
 app.use("/uploads", express.static("uploads"));
 app.use(i18nMiddleware);
 
-
+// ✅ Routes
 AllRoutes(app);
+
+// ✅ Error Middleware
 app.use(errorMiddleware);
 
-// Only start the server if not in serverless environment
-if (process.env.NODE_ENV !== 'production') {
-  const PORT = process.env.PORT || 3010;
-  app.listen(PORT, () => {
-    console.log(`App listening on Port: ${PORT}`);
-  });
-}
+// ✅ Test route (for debugging on Vercel)
+app.get("/h", (req, res) => {
+  res.send("Hello from Express on Vercel!");
+});
 
-// Export for both CommonJS and serverless
+// 🔑 Export ONLY the app (no listen here)
 export default app;
-export const handler = ServerlessHttp(app);
